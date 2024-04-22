@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'usuarios/css/usuarios.css' %}">
+<link rel="stylesheet" href="{% static 'medicos/css/cadastro_medico.css' %}">
+{% endblock 'head' %}
+{% block 'body' %}
+<div class="container">    
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+            <p class="p-bold">Olá, <span class="color-dark">{{request.user.username}}</p>
+            <p class="p-bold">Vamos realizar seu cadastro médico legal.</p>
+            {% if messages %}            
+                {% for message in messages %}
+                        <section class="alert {{message.tags}}">
+                                {{message}}
+                        </section>
+                {% endfor %}
+            {% endif %}
+            <br>
+            <form action="{% url 'cadastro_medico' %}" method="post" enctype='multipart/form-data'>{% csrf_token %}
+                <div class="row">
+                    <div class="col-md">
+                        <label for="crm">CRM:</label>
+                        <input type="text" class="form-control shadow-main-color" id="crn" name="crm" placeholder="CRM...">
+                    </div>
+                    <div class="col-md">
+                        <label for="crmid">Cédula CRM:</label>
+                        <input type="file" name="crmid" id="crmid" class="form-control shadow-main-color">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md">
+                        <label for="nome">Nome completo:</label>
+                        <input type="text" class="form-control shadow-main-color" id="nome" name="nome"
+                            placeholder="Digite seu nome ...">
+                    </div>
+                    <div class="col-md">
+                        <label for="rg">RG:</label>
+                                    <input type="file" name="rg" id="rg" class="form-control shadow-main-color">
+                    </div>
+                </div>
+                <br>
+                <label for="foto">Foto de perfil:</label>
+                <input type="file" name="foto" id="foto" class="form-control shadow-main-color">
+                <br>
+                <div class="row g-3 d-flex justify-content-around">
+                    <div class="col-auto">
+                        <label for="cep" class="col-form-label">CEP</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" name="cep" id="cep" class="form-control shadow-main-color">
+                    </div>
+                    <div class="col-auto">
+                        <label for="logradouro" class="col-form-label">Logradouro:</label>
+                    </div>
+                    <div class="col-md">
+                        <input type="text" name="logradouro" id="logradouro" class="form-control shadow-main-color">
+                    </div>
+                </div>
+                <br>
+                <div class="row g-3 d-flex justify-content-around">
+                    <div class="col-auto">
+                        <label for="cidade" class="col-form-label">Cidade:</label>
+                    </div>
+                    <div class="col-md">
+                        <input type="text" name="cidade" id="cidade" class="form-control shadow-main-color">
+                    </div>
+                    <div class="col-auto">
+                        <label for="estado" class="col-form-label">Estado:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" name="estado" id="estado" class="form-control shadow-main-color">
+                    </div>
+                </div>
+                <br>
+                <label for="rua">Rua</label>
+                <input type="text" name="rua" id="rua" class="form-control shadow-main-color" placeholder="Endereço ...">
+                <br>
+                <div class="row g-3 d-flex justify-content-around">                    
+                    <div class="col-auto">
+                        <label for="numero" class="col-form-label">Número:</label>
+                    </div>                    
+                    <div class="col-sm-2">
+                        <input type="number" name="numero" id="numero" class="form-control shadow-main-color">
+                    </div>
+                    <div class="col-auto">
+                        <label for="bairro" class="col-form-label">Bairro:</label>
+                    </div>                    
+                        <div class="col-md">
+                        <input type="text" class="form-control shadow-main-color" id="bairro" name="bairro"
+                            placeholder="Bairro ...">
+                    </div>                    
+                </div>               
+                <br>                
+                <div class="row">
+                    <div class="col-md">
+                        <label for="rqe">Especialidade médica</label>
+                <select name="especialidade" class="form-select" id="rqe">
+                    {% for especialidade in especialidadesMedicas %}
+                            <option value="{{especialidade.id}}">{{especialidade}}</option>
+                    {% endfor %}            
+                </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="valor_consulta">Valor consulta:</label>
+                        <input type="number" id="valor_consulta" name="valor_consulta" class="form-control shadow-main-color">
+                    </div>                    
+                </div>
+                <br>
+                <label for="descricao">Currículo resumido:</label>
+                <textarea name="descricao" id="descricao" rows="4" class="form-control shadow-main-color"></textarea>
+                <br>               
+                <input type="submit" value="Cadastre-se" class="btn btn-success btn-dark-color">
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+{% endblock 'body' %}

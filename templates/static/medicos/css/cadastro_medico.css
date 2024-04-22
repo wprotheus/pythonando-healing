@@ -1,0 +1,11 @@
+.shadow-main-color
+{
+    box-shadow: 1px 1px 5px 1px rgba(0, 204, 190,.4);
+}
+
+.foto-perfil
+{
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+}
